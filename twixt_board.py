@@ -8,7 +8,12 @@
 #
 ##################################################################################################################################
 
+from tkinter import Menu
 from graphics import *
+from PIL import ImageGrab
+import win32gui
+from datetime import datetime as dt
+import time
 
 # global variables  
 BOARD_SIZE = 7
@@ -72,12 +77,29 @@ def play_game(window):
         line = Line(peg1.getCenter(), peg2.getCenter())
         line.draw(window)
         
+
+def take_screenshot(window):
+    current_time = str(dt.now().strftime("%d_%m_%Y_")) + str(time.strftime("%H_%M_%S", time.localtime()))
+    time.sleep(0.5) # wait for the window to update so menu bar is not visible
+    bbox = win32gui.GetWindowRect(window.master.winfo_id())
+    ImageGrab.grab(bbox).save("./Screenshots/screenshot_" + current_time + ".png", "png")
+        
         
         
 def main():
-    window = GraphWin("Twixt", 1000, 1000)
+    window = GraphWin("Twixt", 800, 800)
     window.setCoords(0, 0, BOARD_SIZE * 100, BOARD_SIZE * 100)
     window.setBackground("white")
+    
+    # add a menu bar to the window using graphics.py
+    menubar = Menu(window.master)
+    window.master.config(menu=menubar)
+    actionMenu = Menu(menubar, tearoff=0)
+    actionMenu.add_command(label="Take Screenshot", command=lambda: take_screenshot(window))
+    actionMenu.add_separator()
+    actionMenu.add_command(label="Exit", command=window.close)
+    menubar.add_cascade(label="Actions", menu=actionMenu)
+    
     draw_board(window)
     play_game(window)
     
