@@ -84,8 +84,13 @@ def take_screenshot(window):
     bbox = win32gui.GetWindowRect(window.master.winfo_id())
     ImageGrab.grab(bbox).save("./Screenshots/screenshot_" + current_time + ".png", "png")
         
-        
-        
+
+def clear_board(window):
+    for item in window.items[:]:
+        item.undraw()
+    draw_board(window)
+
+
 def main():
     window = GraphWin("Twixt", 800, 800)
     window.setCoords(0, 0, BOARD_SIZE * 100, BOARD_SIZE * 100)
@@ -96,6 +101,7 @@ def main():
     window.master.config(menu=menubar)
     actionMenu = Menu(menubar, tearoff=0)
     actionMenu.add_command(label="Take Screenshot", command=lambda: take_screenshot(window))
+    actionMenu.add_command(label="Clear Board", command=lambda: clear_board(window))
     actionMenu.add_separator()
     actionMenu.add_command(label="Exit", command=window.close)
     menubar.add_cascade(label="Actions", menu=actionMenu)
