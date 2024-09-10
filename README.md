@@ -11,5 +11,6 @@
 
 - **Actions**
   - **Take Screenshot**: Takes a screenshot of the current game state and saves it to ./Screenshots.
+  - **Change Peg Color**: Changes the color of the pegs between black and red. (Used mostly for demonstration purposes, linking between red and black is buggy.)
   - **Clear Board**: Clears the board of all pegs and links.
   - **Exit**: Exit the game.

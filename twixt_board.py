@@ -18,6 +18,7 @@ import time
 # global variables  
 BOARD_SIZE = 7
 LINE_WIDTH = 4
+PEG_COLOR = "black"
 CENTERS = []
 CLICKABLE_AREAS = []
 
@@ -66,12 +67,12 @@ def play_game(window):
             if CLICKABLE_AREAS[i].getP1().getX() < click1.getX() < CLICKABLE_AREAS[i].getP2().getX() and CLICKABLE_AREAS[i].getP1().getY() < click1.getY() < CLICKABLE_AREAS[i].getP2().getY():
                 peg1 = Circle(CENTERS[i], 10)
                 peg = Circle(CENTERS[i], 10)
-                peg.setFill("black")
+                peg.setFill(PEG_COLOR)
                 peg.draw(window)
             if CLICKABLE_AREAS[i].getP1().getX() < click2.getX() < CLICKABLE_AREAS[i].getP2().getX() and CLICKABLE_AREAS[i].getP1().getY() < click2.getY() < CLICKABLE_AREAS[i].getP2().getY():
                 peg2 = Circle(CENTERS[i], 10)
                 peg = Circle(CENTERS[i], 10)
-                peg.setFill("black")
+                peg.setFill(PEG_COLOR)
                 peg.draw(window)
         # draw a line between the two clicks
         line = Line(peg1.getCenter(), peg2.getCenter())
@@ -91,6 +92,14 @@ def clear_board(window):
     draw_board(window)
 
 
+def change_peg_color():
+    global PEG_COLOR   
+    if PEG_COLOR == "black":
+        PEG_COLOR = "red"
+    else:
+        PEG_COLOR = "black"
+
+
 def main():
     window = GraphWin("Twixt", 800, 800)
     window.setCoords(0, 0, BOARD_SIZE * 100, BOARD_SIZE * 100)
@@ -101,6 +110,7 @@ def main():
     window.master.config(menu=menubar)
     actionMenu = Menu(menubar, tearoff=0)
     actionMenu.add_command(label="Take Screenshot", command=lambda: take_screenshot(window))
+    actionMenu.add_command(label="Change Peg Color (Black/Red)", command=lambda: change_peg_color())
     actionMenu.add_command(label="Clear Board", command=lambda: clear_board(window))
     actionMenu.add_separator()
     actionMenu.add_command(label="Exit", command=window.close)
