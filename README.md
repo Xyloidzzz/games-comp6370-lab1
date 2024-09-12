@@ -2,6 +2,12 @@
 
 *(Adjusted as an Impartial Normal Play Game)*
 
+## Import Quirks
+
+- **graphics** is required for the GUI. It can be installed via pip using ***pip install `pip install graphics.py`.
+- **win32gui** is required for the screenshot functionality. It can be installed via pip using `pip install pywin32`.
+- **PIL** is also required for the screenshot functionality. It can be installed via pip using `pip install pillow`.
+
 ## Controls
 
 - Click twice on a cell to place a peg.
